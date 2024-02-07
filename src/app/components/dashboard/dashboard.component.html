@@ -1,0 +1,37 @@
+<div class="dashboard">
+    <mat-grid-list cols="2">
+        <!-- Chart 1: Issue Pie Chart -->
+        <mat-grid-tile>
+
+            <mat-card class="example-card" style="width: 80%;">
+                <mat-card-content>
+                    <app-pie></app-pie>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <!-- Chart 2: Issue State Bar Chart -->
+        <mat-grid-tile>
+            <mat-card class="example-card">
+                <mat-card-content>
+                    <app-issue-state-bar-chart></app-issue-state-bar-chart>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <!-- Chart 3: Issue Assignee State Bar Chart -->
+        <mat-grid-tile>
+            <mat-card class="example-card" style="width: 100%;">
+                <mat-card-content>
+                    <app-issue-assignee-bar-chart></app-issue-assignee-bar-chart>
+                </mat-card-content>
+
+            </mat-card>
+
+
+        </mat-grid-tile>
+
+        <!-- Add more tiles for additional charts -->
+
+    </mat-grid-list>
+</div>
