@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { GitlabApiService } from 'src/app/services/gitlab-api.service';
@@ -7,9 +7,12 @@ import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 @Component({
   selector: 'app-pie',
   templateUrl: './pie.component.html',
-  styleUrls: ['./pie.component.scss']
+  styleUrls: ['./pie.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PieComponent implements OnInit, AfterViewInit {
+
+  @Input() issues: any[] = [];
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -32,22 +35,18 @@ export class PieComponent implements OnInit, AfterViewInit {
   };
   public pieChartType: ChartType = 'pie';
   public pieChartPlugins = [DatalabelsPlugin];
-  constructor(private gitlabApiService: GitlabApiService) { }
+  constructor() { }
   ngAfterViewInit(): void {
-    this.loadData();
   }
 
   ngOnInit(): void {
-    
   }
 
   loadData(): void {
-    this.gitlabApiService.getIssuesOfProject('782').subscribe(
-      (issues: any[]) => {
-        const assigneesMap = new Map<string, number>();
+    const assigneesMap = new Map<string, number>();
 
         // Count issues by assignee
-        issues.forEach((issue) => {
+        this.issues.forEach((issue) => {
           issue.assignees.forEach((assignee: any) => {
             const assigneeName = assignee.name || 'Unassigned';
             assigneesMap.set(assigneeName, (assigneesMap.get(assigneeName) || 0) + 1);
@@ -66,10 +65,11 @@ export class PieComponent implements OnInit, AfterViewInit {
 
         // Trigger chart update
         this.chart?.update();
-      },
-      (error) => {
-        console.error('Error fetching issues:', error);
-      }
-    );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['issues'] && this.issues.length!==0) {
+      this.loadData();
+    }
   }
 }

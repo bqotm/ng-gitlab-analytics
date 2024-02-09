@@ -12,11 +12,24 @@ import { map } from 'rxjs';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
-  constructor(private breakpointObserver: BreakpointObserver) {
-    
+  constructor(private breakpointObserver: BreakpointObserver, private gitlabApiService: GitlabApiService) {
   }
+
+  sharedIssues: any[] = []
+
+  ngOnInit(): void {
+    this.gitlabApiService.getIssuesOfProject('782').subscribe(
+      (data) => {
+        this.sharedIssues = data;
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    )
+  }
+
 
   cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map((matches: any) => {
