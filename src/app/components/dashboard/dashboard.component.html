@@ -1,37 +1,38 @@
-<div class="dashboard">
-    <mat-grid-list cols="2">
-        <!-- Chart 1: Issue Pie Chart -->
-        <mat-grid-tile>
-
-            <mat-card class="example-card" style="width: 80%;">
-                <mat-card-content>
-                    <app-pie></app-pie>
-                </mat-card-content>
-            </mat-card>
+<div class="grid-container">
+    <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
+        <!--Charts-->
+        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+          <app-card title="All Issues">
+            <app-pie></app-pie>
+          </app-card>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+          <app-card title="Open/Closed Issues">
+            <app-issue-state-bar-chart></app-issue-state-bar-chart>
+          </app-card>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+          <app-card title="Open/Closed Issues by assignee">
+            <app-issue-assignee-bar-chart></app-issue-assignee-bar-chart>
+          </app-card>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+          <app-card title="Created/Resolved Issues by month">
+            <app-issue-per-assignee-at-period></app-issue-per-assignee-at-period>
+          </app-card>
+        </mat-grid-tile>
+        
+        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+          <app-card title="Created/Resolved Issues by month by assignee">
+            <app-created-vs-resolved-issues-by-collab></app-created-vs-resolved-issues-by-collab>
+          </app-card>
         </mat-grid-tile>
 
-        <!-- Chart 2: Issue State Bar Chart -->
-        <mat-grid-tile>
-            <mat-card class="example-card">
-                <mat-card-content>
-                    <app-issue-state-bar-chart></app-issue-state-bar-chart>
-                </mat-card-content>
-            </mat-card>
+        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+          <app-card title="Backlog age">
+            <app-backlog-age></app-backlog-age>
+          </app-card>
         </mat-grid-tile>
-
-        <!-- Chart 3: Issue Assignee State Bar Chart -->
-        <mat-grid-tile>
-            <mat-card class="example-card" style="width: 100%;">
-                <mat-card-content>
-                    <app-issue-assignee-bar-chart></app-issue-assignee-bar-chart>
-                </mat-card-content>
-
-            </mat-card>
-
-
-        </mat-grid-tile>
-
-        <!-- Add more tiles for additional charts -->
-
-    </mat-grid-list>
+        
+      </mat-grid-list>
 </div>

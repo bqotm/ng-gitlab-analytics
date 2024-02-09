@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class GitlabApiService {
 
-  private gitLabApiUrl = 'https://gitlab.altengroup.net/api/v4'; // Adjust the URL based on your GitLab instance
+  // Adjust the URL based on your GitLab instance
+  private gitLabApiUrl = 'https://gitlab.altengroup.net/api/v4';
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',

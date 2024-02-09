@@ -63,8 +63,6 @@ export class PieComponent implements OnInit, AfterViewInit {
             },
           ],
         };
-        console.log(this.pieChartData.labels)
-        console.log(this.pieChartData.datasets[0].data)
 
         // Trigger chart update
         this.chart?.update();

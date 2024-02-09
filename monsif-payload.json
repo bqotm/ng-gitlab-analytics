@@ -1,0 +1,508 @@
+[
+    {
+        "id": 71284,
+        "iid": 778,
+        "project_id": 94913,
+        "title": "X2W36-Service Management : recovery EVA BLMS 323-345 pour le 06/09/2023",
+        "description": "## Need Description\nRetrofit 323/345: Des vin qui spam vnext où il faut Deinitiate les TPs 200323 et 200345\n## Actions\nDeinitiate\n## Outputs\n54 nouveaux vin",
+        "state": "closed",
+        "created_at": "2023-09-06T09:50:24.083Z",
+        "updated_at": "2023-09-08T14:10:23.996Z",
+        "closed_at": "2023-09-07T08:02:58.010Z",
+        "closed_by": {
+            "id": 23604,
+            "username": "anas.moufdir",
+            "name": "Anas Moufdir",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+        },
+        "labels": [
+            "Domain::Service Management",
+            "Event::Reccuring",
+            "Status::Done",
+            "WU::14",
+            "p::2"
+        ],
+        "milestone": {
+            "id": 1850,
+            "iid": 9,
+            "project_id": 94913,
+            "title": "Sept 23",
+            "description": "",
+            "state": "active",
+            "created_at": "2023-06-30T07:44:51.982Z",
+            "updated_at": "2023-06-30T07:45:55.293Z",
+            "due_date": "2023-09-29",
+            "start_date": "2023-08-01",
+            "expired": true,
+            "web_url": "https://gitlabee.dt.renault.com/irn-73057/cvims/-/milestones/9"
+        },
+        "assignees": [
+            {
+                "id": 23604,
+                "username": "anas.moufdir",
+                "name": "Anas Moufdir",
+                "state": "active",
+                "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+                "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+            }
+        ],
+        "author": {
+            "id": 23604,
+            "username": "anas.moufdir",
+            "name": "Anas Moufdir",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+        },
+        "type": "ISSUE",
+        "assignee": {
+            "id": 23604,
+            "username": "anas.moufdir",
+            "name": "Anas Moufdir",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+        },
+        "user_notes_count": 0,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "due_date": "2023-09-07",
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlabee.dt.renault.com/irn-73057/cvims/-/issues/778",
+        "time_stats": {
+            "time_estimate": 0,
+            "total_time_spent": 0,
+            "human_time_estimate": null,
+            "human_total_time_spent": null
+        },
+        "task_completion_status": {
+            "count": 0,
+            "completed_count": 0
+        },
+        "weight": 2,
+        "blocking_issues_count": 0,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
+        "_links": {
+            "self": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/778",
+            "notes": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/778/notes",
+            "award_emoji": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/778/award_emoji",
+            "project": "https://gitlabee.dt.renault.com/api/v4/projects/94913",
+            "closed_as_duplicate_of": null
+        },
+        "references": {
+            "short": "#778",
+            "relative": "#778",
+            "full": "irn-73057/cvims#778"
+        },
+        "severity": "UNKNOWN",
+        "subscribed": false,
+        "moved_to_id": null,
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": {
+            "id": 1045,
+            "iid": 40,
+            "sequence": 16,
+            "group_id": 28211,
+            "title": null,
+            "description": null,
+            "state": 3,
+            "created_at": "2023-04-17T00:05:03.512Z",
+            "updated_at": "2023-09-18T00:05:02.071Z",
+            "start_date": "2023-09-04",
+            "due_date": "2023-09-17",
+            "web_url": "https://gitlabee.dt.renault.com/groups/irn-73057/-/iterations/1045"
+        }
+    },
+    {
+        "id": 71272,
+        "iid": 770,
+        "project_id": 94913,
+        "title": "X1W36-Service Management : Campaign Inventory for Service Activation failure due to missing Inventory and Bootstrap campaign failed 05/09",
+        "description": "## Need Description\n\n## Actions\n\n## Outputs\n\n| ticket | type |\n|--------|------|\n| R-REQ0020029 | Campaign inventory vins Renault Emea |\n| R-REQ0020030 | Campaign inventory vins Dacia emea |\n| R-REQ0020031 | Campaign inventory vins Alpine emea |",
+        "state": "closed",
+        "created_at": "2023-09-05T11:21:11.959Z",
+        "updated_at": "2023-09-06T08:02:47.918Z",
+        "closed_at": "2023-09-06T08:02:47.902Z",
+        "closed_by": {
+            "id": 23604,
+            "username": "anas.moufdir",
+            "name": "Anas Moufdir",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+        },
+        "labels": [
+            "Domain::Service Management",
+            "Event::Reccuring",
+            "SNOW Count",
+            "Status::Done",
+            "WU::13",
+            "p::2"
+        ],
+        "milestone": {
+            "id": 1850,
+            "iid": 9,
+            "project_id": 94913,
+            "title": "Sept 23",
+            "description": "",
+            "state": "active",
+            "created_at": "2023-06-30T07:44:51.982Z",
+            "updated_at": "2023-06-30T07:45:55.293Z",
+            "due_date": "2023-09-29",
+            "start_date": "2023-08-01",
+            "expired": true,
+            "web_url": "https://gitlabee.dt.renault.com/irn-73057/cvims/-/milestones/9"
+        },
+        "assignees": [
+            {
+                "id": 22031,
+                "username": "riham.bougnaber",
+                "name": "Riham Bougnaber",
+                "state": "active",
+                "avatar_url": "https://secure.gravatar.com/avatar/11e21ac1b41c6703ffa617a124d2a311?s=80&d=identicon",
+                "web_url": "https://gitlabee.dt.renault.com/riham.bougnaber"
+            }
+        ],
+        "author": {
+            "id": 22031,
+            "username": "riham.bougnaber",
+            "name": "Riham Bougnaber",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/11e21ac1b41c6703ffa617a124d2a311?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/riham.bougnaber"
+        },
+        "type": "ISSUE",
+        "assignee": {
+            "id": 22031,
+            "username": "riham.bougnaber",
+            "name": "Riham Bougnaber",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/11e21ac1b41c6703ffa617a124d2a311?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/riham.bougnaber"
+        },
+        "user_notes_count": 1,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "due_date": "2023-09-06",
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlabee.dt.renault.com/irn-73057/cvims/-/issues/770",
+        "time_stats": {
+            "time_estimate": 0,
+            "total_time_spent": 0,
+            "human_time_estimate": null,
+            "human_total_time_spent": null
+        },
+        "task_completion_status": {
+            "count": 0,
+            "completed_count": 0
+        },
+        "weight": 3,
+        "blocking_issues_count": 0,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
+        "_links": {
+            "self": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/770",
+            "notes": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/770/notes",
+            "award_emoji": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/770/award_emoji",
+            "project": "https://gitlabee.dt.renault.com/api/v4/projects/94913",
+            "closed_as_duplicate_of": null
+        },
+        "references": {
+            "short": "#770",
+            "relative": "#770",
+            "full": "irn-73057/cvims#770"
+        },
+        "severity": "UNKNOWN",
+        "subscribed": false,
+        "moved_to_id": null,
+        "service_desk_reply_to": null,
+        "epic_iid": 1,
+        "epic": {
+            "id": 1106,
+            "iid": 1,
+            "title": "WU13 - Manual recoveries implemented",
+            "url": "/groups/irn-73057/-/epics/1",
+            "group_id": 28211,
+            "human_readable_end_date": "Feb 29, 2024",
+            "human_readable_timestamp": "<strong>22</strong> days remaining"
+        },
+        "iteration": {
+            "id": 1045,
+            "iid": 40,
+            "sequence": 16,
+            "group_id": 28211,
+            "title": null,
+            "description": null,
+            "state": 3,
+            "created_at": "2023-04-17T00:05:03.512Z",
+            "updated_at": "2023-09-18T00:05:02.071Z",
+            "start_date": "2023-09-04",
+            "due_date": "2023-09-17",
+            "web_url": "https://gitlabee.dt.renault.com/groups/irn-73057/-/iterations/1045"
+        }
+    },
+    {
+        "id": 71260,
+        "iid": 765,
+        "project_id": 94913,
+        "title": "X1W36-Service Management, Campaign Inventory du 04/09/2023",
+        "description": "### Définition\n\nCampaign Inventory : cette campagne consiste à demander à la voiture de remonter les informations de chaque calculateur (S/N, soft version, ...) vers tous les systèmes offboards.\n\n### Sources\n\nCes données proviennent de 2 sources :\n1- Inventory au bootstrap pour les CCS1 et CCS2 (IVI ne reconnait pas IVC, empêche activation services), véhicules ayant bootstrapé (début de vie de la voiture) et inventory manquant : indiqué dans le dashboard que tu m’as partagé (https://datastudio.google.com/reporting/2d4a1e31-db8b-4cb1-ac71-1c8aeac72e8f/page/cJwsC) \n\n2- Inventory lors d'un software (SW) update (synchro infos dans ECUs/VNEXT/BVM), les véhicules en cours de vie recevant un FOTA software update et ne lancent pas l'inventory. Voir wiki https://gitlabee.dt.renault.com/irn-73057/cvims/-/wikis/Campaign-Inventory-au-Bootstrap\n\n3- A partir des données exportées, utilisé le script req-script-to-get-brand-information-for-vin dans durepo suivant stp  https://gitlabee.dt.renault.com/irn-73057/cvims/-/tree/master/recovery/New_Scripts_for_Recovery pour extraire les informations nécessaires à la campaign\n\n\n### Ouput\n\nTickets SNOW\n\n\n| ticket | type |\n|--------|------|\n| R-REQ0020008 | Campaign inventory vins Renault EMEA |\n| R-REQ0020009 | Campaign inventory vins Dacia EMEA |",
+        "state": "closed",
+        "created_at": "2023-09-04T14:59:35.283Z",
+        "updated_at": "2023-09-05T08:04:23.441Z",
+        "closed_at": "2023-09-05T08:04:23.430Z",
+        "closed_by": {
+            "id": 23604,
+            "username": "anas.moufdir",
+            "name": "Anas Moufdir",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+        },
+        "labels": [
+            "Domain::Service Management",
+            "Event::Reccuring",
+            "SNOW Count",
+            "Status::Done",
+            "WU::13",
+            "p::2"
+        ],
+        "milestone": {
+            "id": 1850,
+            "iid": 9,
+            "project_id": 94913,
+            "title": "Sept 23",
+            "description": "",
+            "state": "active",
+            "created_at": "2023-06-30T07:44:51.982Z",
+            "updated_at": "2023-06-30T07:45:55.293Z",
+            "due_date": "2023-09-29",
+            "start_date": "2023-08-01",
+            "expired": true,
+            "web_url": "https://gitlabee.dt.renault.com/irn-73057/cvims/-/milestones/9"
+        },
+        "assignees": [
+            {
+                "id": 22031,
+                "username": "riham.bougnaber",
+                "name": "Riham Bougnaber",
+                "state": "active",
+                "avatar_url": "https://secure.gravatar.com/avatar/11e21ac1b41c6703ffa617a124d2a311?s=80&d=identicon",
+                "web_url": "https://gitlabee.dt.renault.com/riham.bougnaber"
+            }
+        ],
+        "author": {
+            "id": 22031,
+            "username": "riham.bougnaber",
+            "name": "Riham Bougnaber",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/11e21ac1b41c6703ffa617a124d2a311?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/riham.bougnaber"
+        },
+        "type": "ISSUE",
+        "assignee": {
+            "id": 22031,
+            "username": "riham.bougnaber",
+            "name": "Riham Bougnaber",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/11e21ac1b41c6703ffa617a124d2a311?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/riham.bougnaber"
+        },
+        "user_notes_count": 1,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "due_date": "2023-09-05",
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlabee.dt.renault.com/irn-73057/cvims/-/issues/765",
+        "time_stats": {
+            "time_estimate": 0,
+            "total_time_spent": 0,
+            "human_time_estimate": null,
+            "human_total_time_spent": null
+        },
+        "task_completion_status": {
+            "count": 0,
+            "completed_count": 0
+        },
+        "weight": 3,
+        "blocking_issues_count": 0,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
+        "_links": {
+            "self": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/765",
+            "notes": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/765/notes",
+            "award_emoji": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/765/award_emoji",
+            "project": "https://gitlabee.dt.renault.com/api/v4/projects/94913",
+            "closed_as_duplicate_of": null
+        },
+        "references": {
+            "short": "#765",
+            "relative": "#765",
+            "full": "irn-73057/cvims#765"
+        },
+        "severity": "UNKNOWN",
+        "subscribed": false,
+        "moved_to_id": null,
+        "service_desk_reply_to": null,
+        "epic_iid": 1,
+        "epic": {
+            "id": 1106,
+            "iid": 1,
+            "title": "WU13 - Manual recoveries implemented",
+            "url": "/groups/irn-73057/-/epics/1",
+            "group_id": 28211,
+            "human_readable_end_date": "Feb 29, 2024",
+            "human_readable_timestamp": "<strong>22</strong> days remaining"
+        },
+        "iteration": {
+            "id": 1045,
+            "iid": 40,
+            "sequence": 16,
+            "group_id": 28211,
+            "title": null,
+            "description": null,
+            "state": 3,
+            "created_at": "2023-04-17T00:05:03.512Z",
+            "updated_at": "2023-09-18T00:05:02.071Z",
+            "start_date": "2023-09-04",
+            "due_date": "2023-09-17",
+            "web_url": "https://gitlabee.dt.renault.com/groups/irn-73057/-/iterations/1045"
+        }
+    },
+    {
+        "id": 71248,
+        "iid": 761,
+        "project_id": 94913,
+        "title": "REQ-Service Management : Relance SSA via ASAP pour la liste des vin en PJ 30/08/2023",
+        "description": "## Need Description\n[CRE01-BVM03_30-08-2023_.csv](/uploads/40bcc401a34634c8eddbbbfcdaace145/CRE01-BVM03_30-08-2023_.csv)\n## Actions\nLancer SSA\n## Outputs\nAjout des lignes dans recovery.asap_recovery",
+        "state": "closed",
+        "created_at": "2023-09-01T15:46:03.668Z",
+        "updated_at": "2023-09-04T08:05:26.923Z",
+        "closed_at": "2023-09-04T08:05:26.913Z",
+        "closed_by": {
+            "id": 23604,
+            "username": "anas.moufdir",
+            "name": "Anas Moufdir",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+        },
+        "labels": [
+            "Domain::Service Management",
+            "Event::Reccuring",
+            "Status::Done",
+            "WU::14",
+            "p::2"
+        ],
+        "milestone": {
+            "id": 1850,
+            "iid": 9,
+            "project_id": 94913,
+            "title": "Sept 23",
+            "description": "",
+            "state": "active",
+            "created_at": "2023-06-30T07:44:51.982Z",
+            "updated_at": "2023-06-30T07:45:55.293Z",
+            "due_date": "2023-09-29",
+            "start_date": "2023-08-01",
+            "expired": true,
+            "web_url": "https://gitlabee.dt.renault.com/irn-73057/cvims/-/milestones/9"
+        },
+        "assignees": [
+            {
+                "id": 23604,
+                "username": "anas.moufdir",
+                "name": "Anas Moufdir",
+                "state": "active",
+                "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+                "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+            }
+        ],
+        "author": {
+            "id": 23604,
+            "username": "anas.moufdir",
+            "name": "Anas Moufdir",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+        },
+        "type": "ISSUE",
+        "assignee": {
+            "id": 23604,
+            "username": "anas.moufdir",
+            "name": "Anas Moufdir",
+            "state": "active",
+            "avatar_url": "https://secure.gravatar.com/avatar/ccc0f0001edc59e7a257ccc6c0ced4ed?s=80&d=identicon",
+            "web_url": "https://gitlabee.dt.renault.com/anas.moufdir"
+        },
+        "user_notes_count": 0,
+        "merge_requests_count": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "due_date": "2023-09-04",
+        "confidential": false,
+        "discussion_locked": null,
+        "issue_type": "issue",
+        "web_url": "https://gitlabee.dt.renault.com/irn-73057/cvims/-/issues/761",
+        "time_stats": {
+            "time_estimate": 0,
+            "total_time_spent": 0,
+            "human_time_estimate": null,
+            "human_total_time_spent": null
+        },
+        "task_completion_status": {
+            "count": 0,
+            "completed_count": 0
+        },
+        "weight": 2,
+        "blocking_issues_count": 0,
+        "has_tasks": true,
+        "task_status": "0 of 0 checklist items completed",
+        "_links": {
+            "self": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/761",
+            "notes": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/761/notes",
+            "award_emoji": "https://gitlabee.dt.renault.com/api/v4/projects/94913/issues/761/award_emoji",
+            "project": "https://gitlabee.dt.renault.com/api/v4/projects/94913",
+            "closed_as_duplicate_of": null
+        },
+        "references": {
+            "short": "#761",
+            "relative": "#761",
+            "full": "irn-73057/cvims#761"
+        },
+        "severity": "UNKNOWN",
+        "subscribed": false,
+        "moved_to_id": null,
+        "service_desk_reply_to": null,
+        "epic_iid": null,
+        "epic": null,
+        "iteration": {
+            "id": 1040,
+            "iid": 39,
+            "sequence": 15,
+            "group_id": 28211,
+            "title": null,
+            "description": null,
+            "state": 3,
+            "created_at": "2023-04-03T00:05:02.498Z",
+            "updated_at": "2023-09-04T00:05:07.028Z",
+            "start_date": "2023-08-21",
+            "due_date": "2023-09-03",
+            "web_url": "https://gitlabee.dt.renault.com/groups/irn-73057/-/iterations/1040"
+        }
+    }
+]

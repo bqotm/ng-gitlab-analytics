@@ -15,6 +15,12 @@ import { IssueAssigneeBarChartComponent } from './components/charts/issue-assign
 import {MatCardModule} from '@angular/material/card';
 import { IssueStateBarChartComponent } from './components/charts/issue-state-bar-chart/issue-state-bar-chart.component';
 import { IssuePerAssigneeAtPeriodComponent } from './components/charts/issue-per-assignee-at-period/issue-per-assignee-at-period.component';
+import { CardComponent } from './components/card/card.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import { CreatedVsResolvedIssuesByCollabComponent } from './components/charts/created-vs-resolved-issues-by-collab/created-vs-resolved-issues-by-collab.component';
+import { BacklogAgeComponent } from './components/charts/backlog-age/backlog-age.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +28,10 @@ import { IssuePerAssigneeAtPeriodComponent } from './components/charts/issue-per
     PieComponent,
     IssueStateBarChartComponent,
     IssueAssigneeBarChartComponent,
-    IssuePerAssigneeAtPeriodComponent
+    IssuePerAssigneeAtPeriodComponent,
+    CardComponent,
+    CreatedVsResolvedIssuesByCollabComponent,
+    BacklogAgeComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +41,9 @@ import { IssuePerAssigneeAtPeriodComponent } from './components/charts/issue-per
     BrowserAnimationsModule,
     MatButtonModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [GitlabApiService],
   bootstrap: [AppComponent]
