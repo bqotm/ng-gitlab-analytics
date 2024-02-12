@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map, mergeMap, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,33 @@ export class GitlabApiService {
 
   constructor(private http: HttpClient) { }
 
-  getIssuesOfProject(projectId: string, page: number = 1, perPage: number = 100): Observable<any> {
+  private getPaginatedData(url: string, page: number = 1, perPage: number = 20): Observable<any[]> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('per_page', perPage.toString());
-    const url = `${this.gitLabApiUrl}/projects/${projectId}/issues`;
-    return this.http.get(url, { headers: this.headers, params });
+
+    return this.http.get(url, { headers: this.headers, params, observe: 'response' }).pipe(
+      mergeMap((response) => {
+        const data: any[] = response.body as any[]; // Modify this based on the actual structure of your data
+        const nextPage = +(response as any).headers.get('X-Next-Page');
+
+        if (nextPage) {
+          return this.getPaginatedData(url, nextPage, perPage).pipe(
+            map((nextPageData) => data.concat(nextPageData))
+          );
+        } else {
+          return of(data);
+        }
+      })
+    );
   }
+
+  getIssuesOfProject(projectId: string): Observable<any> {
+    const url = `${this.gitLabApiUrl}/projects/${projectId}/issues`;
+    return this.getPaginatedData(url);
+  }
+
+
 
   getEpicsOfGroup(groupId: string): Observable<any> {
     const url = `${this.gitLabApiUrl}/groups/${groupId}/epics`;

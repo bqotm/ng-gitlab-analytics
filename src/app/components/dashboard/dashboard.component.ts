@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.gitlabApiService.getIssuesOfProject('782').subscribe(
       (data) => {
+        console.log(data)
         this.sharedIssues = data;
       },
       (error) => {

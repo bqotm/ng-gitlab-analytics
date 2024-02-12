@@ -88,9 +88,6 @@ export class BacklogAgeComponent {
       datasets: [
         {
           data: ['<3 days', '<1 week', '<2 weeks', '<1 month', '<2 months', '<3 months'].map(label => ageGroupsMap.get(label) || 0),
-          backgroundColor: 'rgba(75,192,192,0.2)',
-          borderColor: 'rgba(75,192,192,1)',
-          borderWidth: 1,
         },
       ],
     };

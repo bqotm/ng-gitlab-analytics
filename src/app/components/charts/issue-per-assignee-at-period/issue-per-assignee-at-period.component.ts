@@ -59,27 +59,34 @@ export class IssuePerAssigneeAtPeriodComponent {
       month.setMonth(today.getMonth() - index);
       return month.toLocaleString('default', { month: 'long', year: 'numeric' });
     }).reverse();
-    console.log(allMonths)
+  
     const monthlyDataMap = new Map<string, { created: number; resolved: number }>(
       allMonths.map(month => [month, { created: 0, resolved: 0 }])
     );
-    
-    // Populate data for each month
+  
+    // Populate data for each issue
     this.issues.forEach((issue) => {
       const createdDate = new Date(issue.created_at);
-      const month = `${createdDate.toLocaleString('default', { month: 'long' })} ${createdDate.getFullYear()}`;
+      const createdMonth = `${createdDate.toLocaleString('default', { month: 'long' })} ${createdDate.getFullYear()}`;
   
-      if (!monthlyDataMap.has(month)) {
-        monthlyDataMap.set(month, { created: 0, resolved: 0 });
+      // Increment created count for the created month
+      if (!monthlyDataMap.has(createdMonth)) {
+        monthlyDataMap.set(createdMonth, { created: 0, resolved: 0 });
       }
+      monthlyDataMap.get(createdMonth)!.created++;
   
-      if (issue.state === 'opened') {
-        monthlyDataMap.get(month)!.created++;
-      } else if (issue.state === 'closed') {
-        monthlyDataMap.get(month)!.resolved++;
+      // Check if issue is resolved and increment resolved count for the resolved month
+      if (issue.state === 'closed' && issue.closed_at) {
+        const closedDate = new Date(issue.closed_at);
+        const resolvedMonth = `${closedDate.toLocaleString('default', { month: 'long' })} ${closedDate.getFullYear()}`;
+  
+        if (!monthlyDataMap.has(resolvedMonth)) {
+          monthlyDataMap.set(resolvedMonth, { created: 0, resolved: 0 });
+        }
+        monthlyDataMap.get(resolvedMonth)!.resolved++;
       }
     });
-    
+  
     // Sort data based on sortedKeys
     const sortedData = Array.from(monthlyDataMap.keys()).map((month) => ({
       month,
@@ -94,16 +101,10 @@ export class IssuePerAssigneeAtPeriodComponent {
         {
           data: sortedData.map(data => data.created),
           label: 'Created Issues',
-          backgroundColor: 'rgba(75,192,192,0.2)',
-          borderColor: 'rgba(75,192,192,1)',
-          borderWidth: 1,
         },
         {
           data: sortedData.map(data => data.resolved),
           label: 'Resolved Issues',
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          borderWidth: 1,
         },
       ],
     };
@@ -111,6 +112,8 @@ export class IssuePerAssigneeAtPeriodComponent {
     // Trigger chart update
     this.chart?.update();
   }
+  
+  
   
 
   ngOnChanges(changes: SimpleChanges): void {
