@@ -70,11 +70,24 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
       return month.toLocaleString('default', { month: 'long', year: 'numeric' });
     }).reverse();
 
+    const monthlyDataMap = new Map<string, { created: number }>(
+      allMonths.map(month => [month, { created: 0 }])
+    );
+
     this.issues.forEach((issue) => {
+      const closedDate = new Date(issue.closed_at);
+      const monthYear = `${closedDate.toLocaleString('default', { month: 'long' })} ${closedDate.getFullYear()}`;
+      const createdDate = new Date(issue.created_at);
+      const createdMonthYear = `${createdDate.toLocaleString('default', { month: 'long' })} ${createdDate.getFullYear()}`;
+
+      // Increment created count for the created month
+      if (!monthlyDataMap.has(createdMonthYear)) {
+        monthlyDataMap.set(createdMonthYear, { created: 0 });
+      }
+      monthlyDataMap.get(createdMonthYear)!.created++;
       issue.assignees.forEach((assignee: any) => {
         const assigneeName = assignee.name;
-        const createdDate = new Date(issue.created_at);
-        const monthYear = `${createdDate.toLocaleString('default', { month: 'long' })} ${createdDate.getFullYear()}`;
+
 
         if (!this.assigneeMap[assigneeName]) {
           this.assigneeMap[assigneeName] = {};
@@ -87,6 +100,12 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
         }
       });
     });
+    // Sort data based on sortedKeys
+    const sortedData = Array.from(monthlyDataMap.keys()).map((month) => ({
+      month,
+      created: monthlyDataMap.get(month)!.created,
+    }));
+    console.log(sortedData)
     // Prepare chart data
     const chartData: ChartDataset[] = [];
     // Transform assigneeMap values into arrays
@@ -97,15 +116,16 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
         this.assigneeMap[assigneeName] = assigneeArray;
         chartData.push({
           data: assigneeArray,
-          label: assigneeName,
+          label: `${assigneeName} - closed`,
           stack: 'a'
         })
       }
     }
     // Set chart labels and data
     this.barChartLabels = allMonths;
-    this.barChartData = [...chartData,
-    { data: [10, 5, 20, 67, 2, 0, 8, 4], label: 'resolved' }
+    this.barChartData = [
+      { data: sortedData.map(data => data.created), label: 'opened' },
+      ...chartData,
     ];
 
     // Trigger chart update
@@ -113,7 +133,7 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['issues'] && this.issues.length!==0) {
+    if (changes['issues'] && this.issues.length !== 0) {
       this.loadData();
     }
   }

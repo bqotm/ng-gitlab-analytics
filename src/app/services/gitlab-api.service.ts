@@ -24,7 +24,7 @@ export class GitlabApiService {
 
     return this.http.get(url, { headers: this.headers, params, observe: 'response' }).pipe(
       mergeMap((response) => {
-        const data: any[] = response.body as any[]; // Modify this based on the actual structure of your data
+        const data: any[] = response.body as any[]; 
         const nextPage = +(response as any).headers.get('X-Next-Page');
 
         if (nextPage) {
