@@ -22,14 +22,14 @@ export class BacklogAgeComponent {
   }
 
   public barChartOptions: ChartConfiguration['options'] = {
+    indexAxis: 'y',
     scales: {
       x: {
-        type: 'category',
-        position: 'bottom',
-        labels: ['<3 days', '<1 week', '<2 weeks', '<1 month','<2 months', '<3 months'],
+        beginAtZero: true,
       },
       y: {
-        beginAtZero: true,
+        type: 'category',
+        
       },
     },
     plugins: {
@@ -56,8 +56,8 @@ export class BacklogAgeComponent {
     const determineAgeCategory = (ageInDays: number): string => {
       const ageMapping: { [key: string]: number } = {
         '<3 days': 3,
-        '<1 week': 10,
-        '<2 weeks': 14,
+        '<1 week': 15,
+        '<2 weeks': 20,
         '<1 month': 30,
         '<2 months':60,
         '<3 months': 110,

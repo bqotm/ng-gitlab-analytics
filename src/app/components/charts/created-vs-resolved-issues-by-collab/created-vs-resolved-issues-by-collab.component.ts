@@ -73,16 +73,16 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
     let periodsInPeriod: number;
     switch (this.timeUnit) {
       case 'months':
-        periodsInPeriod = 7;
+        periodsInPeriod = 4;
         break;
       case 'weeks':
-        periodsInPeriod = 7;
+        periodsInPeriod = 4;
         break;
       case 'days':
-        periodsInPeriod = 15; 
+        periodsInPeriod = 10; 
         break;
       default:
-        periodsInPeriod = 7;
+        periodsInPeriod = 4;
         break;
     }
     // Generate an array of the last 6 months including the current month

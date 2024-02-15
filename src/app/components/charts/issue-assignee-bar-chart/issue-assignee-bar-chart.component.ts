@@ -29,7 +29,7 @@ export class IssueAssigneeBarChartComponent implements OnInit {
       y: {
         beginAtZero: true
       },
-      
+
     },
     plugins: {
       legend: {
@@ -47,28 +47,23 @@ export class IssueAssigneeBarChartComponent implements OnInit {
   public barChartData: ChartData<'bar'> = {
     labels: [],
     datasets: [
-      { data: [], label: 'opened' },
-      { data: [], label: 'closed' },
+      { data: [], label: 'open' },
     ],
   };
 
   loadData(): void {
-    const assigneesMap = new Map<string, { opened: number; closed: number }>();
+    const assigneesMap = new Map<string, { openIssuesCount: number }>();
 
     // Count open and closed issues by assignee
-    this.issues.forEach((issue) => {
+    this.issues.filter(issue => issue.state === 'opened').forEach((issue) => {
       issue.assignees.forEach((assignee: any) => {
         const assigneeName = assignee.name || 'Unassigned';
 
         if (!assigneesMap.has(assigneeName)) {
-          assigneesMap.set(assigneeName, { opened: 0, closed: 0 });
+          assigneesMap.set(assigneeName, { openIssuesCount: 0 });
         }
+        assigneesMap.get(assigneeName)!.openIssuesCount++;
 
-        if (issue.state === 'opened') {
-          assigneesMap.get(assigneeName)!.opened++;
-        } else if (issue.state === 'closed') {
-          assigneesMap.get(assigneeName)!.closed++;
-        }
       });
     });
 
@@ -77,13 +72,9 @@ export class IssueAssigneeBarChartComponent implements OnInit {
       labels: Array.from(assigneesMap.keys()),
       datasets: [
         {
-          data: Array.from(assigneesMap.values()).map((value) => value.opened),
-          label: 'Opened',
-        },
-        {
-          data: Array.from(assigneesMap.values()).map((value) => value.closed),
-          label: 'Closed',
-        },
+          data: Array.from(assigneesMap.values()).map((value) => value.openIssuesCount),
+          label: 'Open Issues',
+        }
       ],
     };
 
@@ -92,10 +83,10 @@ export class IssueAssigneeBarChartComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['issues'] && this.issues.length!==0) {
+    if (changes['issues'] && this.issues.length !== 0) {
       this.loadData();
     }
   }
-  
+
 }
 

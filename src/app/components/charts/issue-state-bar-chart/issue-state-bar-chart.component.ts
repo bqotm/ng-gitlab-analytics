@@ -50,21 +50,45 @@ export class IssueStateBarChartComponent implements OnInit {
   }
 
   loadData(): void {
-    
-      const openedCount = this.issues.filter(issue => issue.state === 'opened').length;
-      const closedCount = this.issues.filter(issue => issue.state === 'closed').length;
+    const today = new Date();
+    const monthsInPeriod = 3;
+    // Generate an array of the last 6 months including the current month
+    const allMonths = Array.from({ length: monthsInPeriod + 1 }, (_, index) => {
+      const month = new Date(today);
+      month.setMonth(today.getMonth() - index);
+      return month.toLocaleString('default', { month: 'long', year: 'numeric' });
+    }).reverse();
+  
+    const monthlyDataMap = new Map<string, { created: number }>(
+      allMonths.map(month => [month, { created: 0 }])
+    );
+
+    this.issues.filter(issue => issue.state === 'opened').forEach((issue) => {
+      const createdDate = new Date(issue.created_at);
+      const createdMonth = `${createdDate.toLocaleString('default', { month: 'long' })} ${createdDate.getFullYear()}`;
+  
+      // Increment created count for the created month
+      if (!monthlyDataMap.has(createdMonth)) {
+        monthlyDataMap.set(createdMonth, { created: 0 });
+      }
+      monthlyDataMap.get(createdMonth)!.created++;
+
+    });
+
+    // Sort data based on sortedKeys
+    const sortedData = Array.from(monthlyDataMap.keys()).map((month) => ({
+      month,
+      created: monthlyDataMap.get(month)!.created
+    }));
+
 
       this.barChartData = {
-        labels: ['Issues'],
+        labels: sortedData.map(data => data.month),
         datasets: [
           {
-            data: [openedCount],
-            label: 'Opened'
+            data: sortedData.map(data => data.created),
+            label: 'Open Issues (created at)'
           },
-          {
-            data: [closedCount],
-            label: 'Closed'
-          }
         ]
       };
       this.chart?.update();

@@ -60,8 +60,8 @@ export class IssuePerAssigneeAtPeriodComponent {
       return month.toLocaleString('default', { month: 'long', year: 'numeric' });
     }).reverse();
   
-    const monthlyDataMap = new Map<string, { created: number; resolved: number }>(
-      allMonths.map(month => [month, { created: 0, resolved: 0 }])
+    const monthlyDataMap = new Map<string, { created: number; closed: number }>(
+      allMonths.map(month => [month, { created: 0, closed: 0 }])
     );
   
     // Populate data for each issue
@@ -71,7 +71,7 @@ export class IssuePerAssigneeAtPeriodComponent {
   
       // Increment created count for the created month
       if (!monthlyDataMap.has(createdMonth)) {
-        monthlyDataMap.set(createdMonth, { created: 0, resolved: 0 });
+        monthlyDataMap.set(createdMonth, { created: 0, closed: 0 });
       }
       monthlyDataMap.get(createdMonth)!.created++;
   
@@ -81,9 +81,9 @@ export class IssuePerAssigneeAtPeriodComponent {
         const resolvedMonth = `${closedDate.toLocaleString('default', { month: 'long' })} ${closedDate.getFullYear()}`;
   
         if (!monthlyDataMap.has(resolvedMonth)) {
-          monthlyDataMap.set(resolvedMonth, { created: 0, resolved: 0 });
+          monthlyDataMap.set(resolvedMonth, { created: 0, closed: 0 });
         }
-        monthlyDataMap.get(resolvedMonth)!.resolved++;
+        monthlyDataMap.get(resolvedMonth)!.closed++;
       }
     });
   
@@ -91,7 +91,7 @@ export class IssuePerAssigneeAtPeriodComponent {
     const sortedData = Array.from(monthlyDataMap.keys()).map((month) => ({
       month,
       created: monthlyDataMap.get(month)!.created,
-      resolved: monthlyDataMap.get(month)!.resolved,
+      resolved: monthlyDataMap.get(month)!.closed,
     }));
   
     // Update chart data and labels

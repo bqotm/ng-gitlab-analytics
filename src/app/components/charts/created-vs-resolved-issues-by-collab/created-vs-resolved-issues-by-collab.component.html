@@ -1,6 +1,6 @@
 <div class="chartContainer">
   <div class="form-row">
-  <mat-form-field appearance="outline" style="width: 20%;">
+  <mat-form-field appearance="outline" style="width: 50%;">
     <mat-label>Select Time Unit:</mat-label>
     <mat-select [(ngModel)]="timeUnit" (ngModelChange)="onTimeUnitChange($event)">
       <mat-option value="days">Days</mat-option>
@@ -8,7 +8,7 @@
       <mat-option value="months">Months</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field appearance="outline" style="width: 40%;">
+  <!--<mat-form-field appearance="outline" style="width: 40%;">
     <mat-label>Start Date:</mat-label>
     <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="startDate">
     <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
@@ -20,7 +20,7 @@
     <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="endDate" [max]="maxEndDate">
     <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
     <mat-datepicker #endDatePicker></mat-datepicker>
-  </mat-form-field>
+  </mat-form-field>-->
 </div>
   <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
     [plugins]="barChartPlugins" [legend]="barChartLegend" [type]="barChartType" width="400" height="400">
