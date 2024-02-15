@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, Input, KeyValueDiffers, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import { GitlabApiService } from 'src/app/services/gitlab-api.service';
 import { ChartOptions, ChartDataset } from 'chart.js';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 interface AssigneeMap {
@@ -24,7 +25,10 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  constructor() { }
+  constructor(private differs: KeyValueDiffers) {
+    this.differ = this.differs.find([]).create();
+    this.endDate = new Date();
+  }
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -54,31 +58,69 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
   ];
 
   assigneeNames: string[] = [];
-
+  timeUnit: 'months' | 'weeks' | 'days' = 'months'; // Default to months
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+  maxEndDate: Date = new Date();
   ngOnInit(): void {
+    this.timeUnit = 'months';
   }
 
   assigneeMap: any = {};
 
   loadData(): void {
     const today = new Date();
-    const monthsInPeriod = 7;
+    let periodsInPeriod: number;
+    switch (this.timeUnit) {
+      case 'months':
+        periodsInPeriod = 7;
+        break;
+      case 'weeks':
+        periodsInPeriod = 7;
+        break;
+      case 'days':
+        periodsInPeriod = 15; 
+        break;
+      default:
+        periodsInPeriod = 7;
+        break;
+    }
     // Generate an array of the last 6 months including the current month
-    const allMonths = Array.from({ length: monthsInPeriod + 1 }, (_, index) => {
-      const month = new Date(today);
-      month.setMonth(today.getMonth() - index);
-      return month.toLocaleString('default', { month: 'long', year: 'numeric' });
+    const allPeriods = Array.from({ length: periodsInPeriod + 1 }, (_, index) => {
+      const period = new Date(today);
+
+      switch (this.timeUnit) {
+        case 'months':
+          period.setMonth(today.getMonth() - index);
+          break;
+        case 'weeks':
+          period.setDate(today.getDate() - index * 7);
+          break;
+        case 'days':
+          period.setDate(today.getDate() - index);
+          break;
+        default:
+          period.setMonth(today.getMonth() - index);
+          break;
+      }
+
+      return this.formatPeriodLabel(period);
     }).reverse();
 
+
     const monthlyDataMap = new Map<string, { created: number }>(
-      allMonths.map(month => [month, { created: 0 }])
+      allPeriods.map(month => [month, { created: 0 }])
     );
 
     this.issues.forEach((issue) => {
-      const closedDate = new Date(issue.closed_at);
-      const monthYear = `${closedDate.toLocaleString('default', { month: 'long' })} ${closedDate.getFullYear()}`;
+
+      let closedDate = new Date(issue.closed_at);
+      if (closedDate > today) {
+        closedDate = today;
+      }
+      const monthYear = this.formatPeriodLabel(closedDate);
       const createdDate = new Date(issue.created_at);
-      const createdMonthYear = `${createdDate.toLocaleString('default', { month: 'long' })} ${createdDate.getFullYear()}`;
+      const createdMonthYear = this.formatPeriodLabel(createdDate);
 
       // Increment created count for the created month
       if (!monthlyDataMap.has(createdMonthYear)) {
@@ -105,14 +147,13 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
       month,
       created: monthlyDataMap.get(month)!.created,
     }));
-    console.log(sortedData)
     // Prepare chart data
     const chartData: ChartDataset[] = [];
     // Transform assigneeMap values into arrays
     for (const assigneeName in this.assigneeMap) {
       if (Object.prototype.hasOwnProperty.call(this.assigneeMap, assigneeName)) {
         const assigneeValues = this.assigneeMap[assigneeName];
-        const assigneeArray = allMonths.map((month) => assigneeValues[month] || 0);
+        const assigneeArray = allPeriods.map((month) => assigneeValues[month] || 0);
         this.assigneeMap[assigneeName] = assigneeArray;
         chartData.push({
           data: assigneeArray,
@@ -122,7 +163,7 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
       }
     }
     // Set chart labels and data
-    this.barChartLabels = allMonths;
+    this.barChartLabels = allPeriods;
     this.barChartData = [
       { data: sortedData.map(data => data.created), label: 'opened' },
       ...chartData,
@@ -133,8 +174,48 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['issues'] && this.issues.length !== 0) {
+    if ((changes['issues'] && this.issues.length !== 0) || (changes['timeUnit'])) {
+      //this runs two times when component is first loaded
+      console.log(changes)
       this.loadData();
+    }
+  }
+
+  private formatPeriodLabel(date: Date): string {
+    switch (this.timeUnit) {
+      case 'months':
+        return date.toLocaleString('default', { month: 'long', year: 'numeric' });
+      case 'weeks':
+        const adjustedDate = this.adjustDateForWeeks(date);
+        return adjustedDate.toLocaleDateString('default');
+      case 'days':
+        return date.toISOString().split('T')[0]; // Using ISO string for consistent formatting
+      default:
+        return '';
+    }
+  }
+
+  private adjustDateForWeeks(date: Date): Date {
+    const adjustedDate = new Date(date);
+    adjustedDate.setDate(date.getDate() - date.getDay()); // Adjust to the start of the week
+    return adjustedDate;
+  }
+
+  onTimeUnitChange(newTimeUnit: 'days' | 'weeks' | 'months'): void {
+    this.timeUnit = newTimeUnit;
+  }
+
+  private differ: any
+
+  ngDoCheck(): void {
+    const changes = this.differ.diff(this);
+
+    if (changes) {
+      changes.forEachChangedItem((change: any) => {
+        if (change.key === 'issues' || change.key === 'timeUnit') {
+          this.loadData();
+        }
+      });
     }
   }
 

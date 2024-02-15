@@ -1,38 +1,38 @@
 <div class="grid-container">
-    <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
-        <!--Charts-->
-        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-          <app-card title="All Issues">
-            <app-pie [issues]="sharedIssues"></app-pie>
-          </app-card>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-          <app-card title="Open/Closed Issues">
-            <app-issue-state-bar-chart [issues]="sharedIssues"></app-issue-state-bar-chart>
-          </app-card>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-          <app-card title="Open/Closed Issues by assignee">
-            <app-issue-assignee-bar-chart [issues]="sharedIssues"></app-issue-assignee-bar-chart>
-          </app-card>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-          <app-card title="Created/Resolved Issues by month">
-            <app-issue-per-assignee-at-period [issues]="sharedIssues"></app-issue-per-assignee-at-period>
-          </app-card>
-        </mat-grid-tile>
-        
-        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-          <app-card title="Created/Resolved Issues by month by assignee">
-            <app-created-vs-resolved-issues-by-collab [issues]="sharedIssues"></app-created-vs-resolved-issues-by-collab>
-          </app-card>
-        </mat-grid-tile>
+  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
+    <!--Charts-->
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+      <app-card title="All Issues">
+        <app-pie [issues]="sharedIssues"></app-pie>
+      </app-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+      <app-card title="Open/Closed Issues">
+        <app-issue-state-bar-chart [issues]="sharedIssues"></app-issue-state-bar-chart>
+      </app-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+      <app-card title="Open/Closed Issues by assignee">
+        <app-issue-assignee-bar-chart [issues]="sharedIssues"></app-issue-assignee-bar-chart>
+      </app-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+      <app-card title="Created/Resolved Issues by month">
+        <app-issue-per-assignee-at-period [issues]="sharedIssues"></app-issue-per-assignee-at-period>
+      </app-card>
+    </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-          <app-card title="Backlog age">
-            <app-backlog-age [issues]="sharedIssues"></app-backlog-age>
-          </app-card>
-        </mat-grid-tile>
-        
-      </mat-grid-list>
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+      <app-card title="Created/Resolved Issues by month by assignee">
+        <app-created-vs-resolved-issues-by-collab [issues]="sharedIssues"></app-created-vs-resolved-issues-by-collab>
+      </app-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
+      <app-card title="Backlog age">
+        <app-backlog-age [issues]="sharedIssues"></app-backlog-age>
+      </app-card>
+    </mat-grid-tile>
+
+  </mat-grid-list>
 </div>
