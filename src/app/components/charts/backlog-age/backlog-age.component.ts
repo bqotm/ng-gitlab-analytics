@@ -1,8 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
-import { GitlabApiService } from 'src/app/services/gitlab-api.service';
+
+
+const ageMapping: { [key: string]: number } = {
+  '<3 days': 3,
+  '<1 week': 7,
+  '<2 weeks': 14,
+  '<3 weeks': 21,
+  '<1 month' : 30,
+  '<2 months': 60,
+  '<3 months': 90,
+};
 
 @Component({
   selector: 'app-backlog-age',
@@ -16,20 +26,16 @@ export class BacklogAgeComponent {
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  public ageCategories: string[] = Object.keys(ageMapping);
 
   public barChartOptions: ChartConfiguration['options'] = {
     indexAxis: 'y',
     scales: {
       x: {
-        beginAtZero: true,
+        beginAtZero: true
       },
       y: {
         type: 'category',
-        
       },
     },
     plugins: {
@@ -42,63 +48,65 @@ export class BacklogAgeComponent {
       },
     },
   };
+
   public barChartType: ChartType = 'bar';
   public barChartPlugins = [DataLabelsPlugin];
 
   public barChartData: ChartData<'bar'> = {
-    labels: [],
-    datasets: [],
+    labels: this.ageCategories,
+    datasets: [
+      {
+        data: this.ageCategories.map(label => this.calculateIssueCount(label)),
+      },
+    ],
   };
 
-  loadData(): void {
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['issues'] && this.issues.length !== 0) {
+      this.loadData();
+    }
+  }
+
+  private calculateIssueCount(ageCategory: string): number {
     const ageGroupsMap = new Map<string, number>();
-    
-    const determineAgeCategory = (ageInDays: number): string => {
-      const ageMapping: { [key: string]: number } = {
-        '<3 days': 3,
-        '<1 week': 15,
-        '<2 weeks': 20,
-        '<1 month': 30,
-        '<2 months':60,
-        '<3 months': 110,
-      };
 
-      return Object.entries(ageMapping)
-        .find(([label, threshold]) => ageInDays < threshold)?.[0] || '';
-    };
-
-    // Calculate the age of each issue and group them into age categories
     this.issues.filter(issue => issue.state === 'opened').forEach((issue) => {
       const createdDate = new Date(issue.created_at);
       const currentDate = new Date();
       const ageInDays = Math.floor((currentDate.getTime() - createdDate.getTime()) / (1000 * 60 * 60 * 24));
 
-      const ageCategory = determineAgeCategory(ageInDays);
+      const category = this.determineAgeCategory(ageInDays);
 
-      if (!ageGroupsMap.has(ageCategory)) {
-        ageGroupsMap.set(ageCategory, 0);
+      if (!ageGroupsMap.has(category)) {
+        ageGroupsMap.set(category, 0);
       }
 
-      ageGroupsMap.set(ageCategory, ageGroupsMap.get(ageCategory)! + 1);
+      ageGroupsMap.set(category, ageGroupsMap.get(category)! + 1);
     });
 
-    // Update chart data and labels
+    return ageGroupsMap.get(ageCategory) || 0;
+  }
+
+  private determineAgeCategory(ageInDays: number): string {
+    return Object.entries(ageMapping)
+      .find(([label, threshold]) => ageInDays <= threshold)?.[0] || '';
+  }
+
+  private loadData(): void {
     this.barChartData = {
-      labels: ['<3 days', '<1 week', '<2 weeks', '<1 month','<2 months', '<3 months'], // Keep the order consistent
+      labels: this.ageCategories,
       datasets: [
         {
-          data: ['<3 days', '<1 week', '<2 weeks', '<1 month', '<2 months', '<3 months'].map(label => ageGroupsMap.get(label) || 0),
+          data: this.ageCategories.map(label => this.calculateIssueCount(label)),
         },
       ],
     };
 
-    // Trigger chart update
     this.chart?.update();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['issues'] && this.issues.length!==0) {
-      this.loadData();
-    }
   }
 }

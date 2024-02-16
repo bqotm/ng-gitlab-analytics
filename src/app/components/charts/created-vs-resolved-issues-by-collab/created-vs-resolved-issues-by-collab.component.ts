@@ -73,7 +73,7 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
     let periodsInPeriod: number;
     switch (this.timeUnit) {
       case 'months':
-        periodsInPeriod = 4;
+        periodsInPeriod = 12;
         break;
       case 'weeks':
         periodsInPeriod = 4;
@@ -82,11 +82,11 @@ export class CreatedVsResolvedIssuesByCollabComponent implements OnInit {
         periodsInPeriod = 10; 
         break;
       default:
-        periodsInPeriod = 4;
+        periodsInPeriod = 12;
         break;
     }
     // Generate an array of the last 6 months including the current month
-    const allPeriods = Array.from({ length: periodsInPeriod + 1 }, (_, index) => {
+    const allPeriods = Array.from({ length: periodsInPeriod }, (_, index) => {
       const period = new Date(today);
 
       switch (this.timeUnit) {

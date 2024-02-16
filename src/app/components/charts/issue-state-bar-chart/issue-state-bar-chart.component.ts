@@ -51,9 +51,9 @@ export class IssueStateBarChartComponent implements OnInit {
 
   loadData(): void {
     const today = new Date();
-    const monthsInPeriod = 3;
+    const monthsInPeriod = 12;
     // Generate an array of the last 6 months including the current month
-    const allMonths = Array.from({ length: monthsInPeriod + 1 }, (_, index) => {
+    const allMonths = Array.from({ length: monthsInPeriod }, (_, index) => {
       const month = new Date(today);
       month.setMonth(today.getMonth() - index);
       return month.toLocaleString('default', { month: 'long', year: 'numeric' });
