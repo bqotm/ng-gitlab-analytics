@@ -8,12 +8,12 @@ import { Observable, map, mergeMap, of } from 'rxjs';
 export class GitlabApiService {
 
   // Adjust the URL based on your GitLab instance
-  private gitLabApiUrl = 'https://gitlab.altengroup.net/api/v4';
+  private gitLabApiUrl = 'gitlab-instance-url';
 
 
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'PRIVATE-TOKEN': 'UR8ux8KxxBrhjXeyzG-K',
+    'PRIVATE-TOKEN': 'ACCESS_TOKEN',
   });
 
   constructor(private http: HttpClient) { }
