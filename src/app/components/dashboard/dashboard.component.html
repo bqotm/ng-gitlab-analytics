@@ -1,36 +1,94 @@
-<div class="grid-container">
-  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" rowHeight="200px">
-    <!--Charts-->
-    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-      <app-card title="G1 - Open Issues by month">
-        <app-issue-state-bar-chart [issues]="sharedIssues"></app-issue-state-bar-chart>
-      </app-card>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-      <app-card title="G2 - Open Issues by assignee">
-        <app-issue-assignee-bar-chart [issues]="sharedIssues"></app-issue-assignee-bar-chart>
-      </app-card>
-    </mat-grid-tile>
+<ngx-spinner type="fire">
+  <p style="color: white" > Fetching... </p>
+</ngx-spinner>
+<div class="container-fluid">
+  <div class="row mb-3 justify-content-center align-items-center">
+    <div class="col-md-6">
+      <mat-form-field appearance="outline" class="w-100 mt-5">
+        <mat-label>Select Months (Data from the latest {{selectedMonthsObject.value}} months )</mat-label>
+        <mat-select
+          [(value)]="selectedMonthsObject.value"
+          (selectionChange)="onMonthsSelectionChange($event)"
+        >
+          <mat-option value="6">6 months</mat-option>
+          <mat-option value="12">1 year</mat-option>
+          <mat-option value="18">1.5 years</mat-option>
+          <mat-option value="24">2 years</mat-option>
+          <mat-option value="30">2.5 years</mat-option>
+          <mat-option value="36">3 years</mat-option>
+          <mat-option value="42">3.5 years</mat-option>
+          <mat-option value="48">4 years</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mat-grid-list
+        cols="{{ (cardLayout | async)?.columns }}"
+        rowHeight="200px"
+      >
+        <!-- Charts -->
+        <mat-grid-tile
+          [colspan]="((cardLayout | async)?.chart)!.cols"
+          [rowspan]="((cardLayout | async)?.chart)!.rows"
+        >
+          <app-card title="G0 - All-Time Issues by Assignee">
+            <app-pie [issues]="sharedIssues"></app-pie>
+          </app-card>
+        </mat-grid-tile>
+        <mat-grid-tile
+          [colspan]="((cardLayout | async)?.chart)!.cols"
+          [rowspan]="((cardLayout | async)?.chart)!.rows"
+        >
+          <app-card title="G1 - Open Issues by month">
+            <app-issue-state-bar-chart
+              [issues]="sharedIssues"
+            ></app-issue-state-bar-chart>
+          </app-card>
+        </mat-grid-tile>
+        <mat-grid-tile
+          [colspan]="((cardLayout | async)?.chart)!.cols"
+          [rowspan]="((cardLayout | async)?.chart)!.rows"
+        >
+          <app-card title="G2 - Open Issues by assignee">
+            <app-issue-assignee-bar-chart
+              [issues]="sharedIssues"
+            ></app-issue-assignee-bar-chart>
+          </app-card>
+        </mat-grid-tile>
 
-    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-      <app-card title="G3 - Backlog age">
-        <app-backlog-age [issues]="sharedIssues"></app-backlog-age>
-      </app-card>
-    </mat-grid-tile>
+        <mat-grid-tile
+          [colspan]="((cardLayout | async)?.chart)!.cols"
+          [rowspan]="((cardLayout | async)?.chart)!.rows"
+        >
+          <app-card title="G3 - Backlog age">
+            <app-backlog-age [issues]="sharedIssues"></app-backlog-age>
+          </app-card>
+        </mat-grid-tile>
 
-    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-      <app-card title="G4 - Created/Closed Issues by month">
-        <app-issue-per-assignee-at-period [issues]="sharedIssues"></app-issue-per-assignee-at-period>
-      </app-card>
-    </mat-grid-tile>
+        <mat-grid-tile
+          [colspan]="((cardLayout | async)?.chart)!.cols"
+          [rowspan]="((cardLayout | async)?.chart)!.rows"
+        >
+          <app-card title="G4 - Created/Closed Issues by month">
+            <app-issue-per-assignee-at-period
+              [issues]="sharedIssues"
+            ></app-issue-per-assignee-at-period>
+          </app-card>
+        </mat-grid-tile>
 
-    <!--
-    <mat-grid-tile [colspan]="( cardLayout | async )?.chart!.cols" [rowspan]="( cardLayout | async )?.chart!.rows">
-      <app-card title="Created/Closed Issues by month by assignee">
-        <app-created-vs-resolved-issues-by-collab [issues]="sharedIssues"></app-created-vs-resolved-issues-by-collab>
-      </app-card>
-    </mat-grid-tile>
-    -->
-
-  </mat-grid-list>
+        <mat-grid-tile
+          [colspan]="((cardLayout | async)?.chart)!.cols"
+          [rowspan]="((cardLayout | async)?.chart)!.rows"
+        >
+          <app-card title="Created/Closed Issues by month by assignee">
+            <app-created-vs-resolved-issues-by-collab
+              [issues]="sharedIssues"
+            ></app-created-vs-resolved-issues-by-collab>
+          </app-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
 </div>

@@ -32,7 +32,9 @@
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+              "node_modules/ngx-spinner/animations/fire.css"
             ],
             "scripts": [
               "node_modules/chart.js/dist/chart.umd.js"
@@ -78,6 +80,9 @@
               "browserTarget": "ng-gitlab-analytics:build:development"
             }
           },
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -108,5 +113,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

@@ -26,6 +26,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgxSpinnerModule
   ],
   providers: [GitlabApiService,
     { provide: MAT_DATE_LOCALE, useValue: 'fr' }],
