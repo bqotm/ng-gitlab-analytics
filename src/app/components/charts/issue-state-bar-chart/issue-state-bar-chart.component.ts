@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { GitlabApiService } from 'src/app/services/gitlab-api.service';
@@ -11,7 +18,6 @@ import DataLabelsPlugin from 'chartjs-plugin-datalabels';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IssueStateBarChartComponent implements OnInit {
-
   @Input() issues: any[] = [];
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
@@ -20,8 +26,8 @@ export class IssueStateBarChartComponent implements OnInit {
     responsive: true,
     scales: {
       x: {
-        beginAtZero: true
-      }
+        beginAtZero: true,
+      },
     },
     plugins: {
       legend: {
@@ -36,69 +42,50 @@ export class IssueStateBarChartComponent implements OnInit {
 
   public barChartData: ChartData<'bar', number[], string> = {
     labels: ['Issues'],
-    datasets: [
-
-    ]
+    datasets: [],
   };
 
   public barChartType: ChartType = 'bar';
   public barChartPlugins = [DataLabelsPlugin];
+  counts : any= {};
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   loadData(): void {
-    const today = new Date();
-    const monthsInPeriod = 12;
-    // Generate an array of the last 6 months including the current month
-    const allMonths = Array.from({ length: monthsInPeriod }, (_, index) => {
-      const month = new Date(today);
-      month.setMonth(today.getMonth() - index);
-      return month.toLocaleString('default', { month: 'long', year: 'numeric' });
-    }).reverse();
-  
-    const monthlyDataMap = new Map<string, { created: number }>(
-      allMonths.map(month => [month, { created: 0 }])
-    );
 
-    this.issues.filter(issue => issue.state === 'opened').forEach((issue) => {
-      const createdDate = new Date(issue.created_at);
-      const createdMonth = `${createdDate.toLocaleString('default', { month: 'long' })} ${createdDate.getFullYear()}`;
-  
-      // Increment created count for the created month
-      if (!monthlyDataMap.has(createdMonth)) {
-        monthlyDataMap.set(createdMonth, { created: 0 });
-      }
-      monthlyDataMap.get(createdMonth)!.created++;
+    // Generate an array of the last 12 months including the current month
+    this.issues
+      .filter((issue) => issue.state === 'opened')
+      .forEach((issue) => {
+        const createdAt = new Date(issue.created_at);
+        const monthYear = `${createdAt.toLocaleString('en-US', {
+          month: 'long',
+        })}/${createdAt.getFullYear()}`;
 
-    });
+        if (!this.counts[monthYear]) {
+          this.counts[monthYear] = 1;
+        } else {
+          this.counts[monthYear]++;
+        }
+      });
 
-    // Sort data based on sortedKeys
-    const sortedData = Array.from(monthlyDataMap.keys()).map((month) => ({
-      month,
-      created: monthlyDataMap.get(month)!.created
-    }));
-
-
-      this.barChartData = {
-        labels: sortedData.map(data => data.month),
-        datasets: [
-          {
-            data: sortedData.map(data => data.created),
-            label: 'Open Issues (created at)'
-          },
-        ]
-      };
-      this.chart?.update();
-    
+    this.barChartData = {
+      labels: Object.keys(this.counts).reverse(),
+      datasets: [
+        {
+          data: Object.values(this.counts).reverse() as number[],
+          label: 'Open Issues (created at)',
+        },
+      ],
+    };
+    this.chart?.update();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['issues'] && this.issues.length!==0) {
+    if (changes['issues'] && this.issues.length !== 0) {
+      console.log(this.issues.slice(88));
       this.loadData();
     }
   }
-
 }
